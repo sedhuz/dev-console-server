@@ -11,7 +11,7 @@ app = Flask(__name__)
 # Enable CORS for all endpoints
 CORS(
     app,
-    origins=[Config.get_app_client_url()],
+    origins=Config.get_app_client_urls(),
     methods=["GET", "POST", "PUT", "OPTIONS"],
     allow_headers=["Content-Type", "Accept"],
 )

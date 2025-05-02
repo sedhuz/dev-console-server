@@ -78,6 +78,7 @@ def _format_merge_requests(merge_requests):
                 # —— Main data ————————————————————————————————————
                 "id": merge_request.get("id"),
                 "iid": merge_request.get("iid"),
+                "project_id": merge_request.get("project_id"),
                 "title": title,
                 "title_formatted": title_formatted,
                 "state": merge_request.get("state"),
@@ -96,7 +97,7 @@ def _format_merge_requests(merge_requests):
                 "has_conflicts": merge_request.get("has_conflicts"),
                 # —— Custom fields ————————————————————————————————
                 "custom_fields": MrCustomFieldsHandler.get_mr_custom_fields(
-                    merge_request.get("iid")
+                    merge_request.get("project_id"), merge_request.get("iid")
                 ),
                 # —— Time —————————————————————————————————————————
                 "created_at": merge_request.get("created_at"),

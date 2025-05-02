@@ -33,16 +33,19 @@ def register_gitlab_routes(app):
 
     # —— Update merge request custom fields ——————————————————————————
     @app.route(
-        "/gitlab/merge-requests/<int:mr_iid>/custom-fields",
+        "/gitlab/merge-requests/<int:project_id>/<int:mr_iid>/custom-fields",
         methods=["POST", "PUT"],
     )
-    def update_mr_custom_fields(mr_iid):
-        data = request.get_json()
-        if not data:
-            return Response.error("No data provided")
+    def update_mr_custom_fields(project_id, mr_iid):
+        try:
+            data = request.get_json()
+            if not data:
+                return Response.error("No data provided")
+        except Exception as e:
+            return Response.error(f"Error: {e}")
 
-        MrCustomFieldsHandler.update_mr_custom_fields(mr_iid, data)
+        MrCustomFieldsHandler.update_mr_custom_fields(project_id, mr_iid, data)
         return Response.success(
             message="Merge request custom fields added/updated successfully",
-            data=MrCustomFieldsHandler.get_mr_custom_fields(mr_iid),
+            data=MrCustomFieldsHandler.get_mr_custom_fields(project_id, mr_iid),
         )

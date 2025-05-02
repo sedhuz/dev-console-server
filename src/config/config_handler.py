@@ -6,7 +6,7 @@ load_dotenv()
 
 APP_PORT_KEY = "APP_PORT"
 APP_HOST_KEY = "APP_HOST"
-APP_CLIENT_URL_KEY = "APP_CLIENT_URL"
+APP_CLIENT_URLS_KEY = "APP_CLIENT_URLS"
 APP_DEBUG_KEY = "APP_DEBUG"
 CONFIG_FILE_PATH = "gitlab_config.json"
 
@@ -35,12 +35,13 @@ def get_app_host():
     return os.getenv(APP_HOST_KEY)
 
 
-def get_app_client_url():
-    return os.getenv(APP_CLIENT_URL_KEY)
+def get_app_client_urls():
+    client_urls = os.getenv(APP_CLIENT_URLS_KEY).split(",")
+    return client_urls
 
 
 def get_app_debug():
-    return os.getenv(APP_DEBUG_KEY)
+    return os.getenv(APP_DEBUG_KEY, "false").lower == "true"
 
 
 # —— Gitlab configs ———————————
